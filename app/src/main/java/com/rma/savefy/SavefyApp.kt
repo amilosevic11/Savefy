@@ -7,8 +7,8 @@ import org.koin.core.context.startKoin
 class SavefyApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(this@SavefyApp)
-        }
+//        startKoin {
+//            androidContext(this@SavefyApp)
+//        }
     }
 }

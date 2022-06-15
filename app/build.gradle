@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -35,12 +36,13 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
 }
 
 dependencies {
 
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
     def koin_version= "3.2.0"
     def nav_version = "2.4.2"
     def roomVersion ="2.4.2"

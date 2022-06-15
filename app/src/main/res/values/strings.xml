@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Savefy</string>
+    <string name="enter_your_e_mail">Enter your e-mail:</string>
+    <string name="enter_your_password">Enter your password:</string>
+    <string name="new_to_savefy">New to Savefy?\n<b>Register Now!</b></string>
+    <string name="login_label">Login</string>
 </resources>
