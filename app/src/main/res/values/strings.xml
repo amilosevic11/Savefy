@@ -4,4 +4,7 @@
     <string name="enter_your_password">Enter your password:</string>
     <string name="new_to_savefy">New to Savefy?\n<b>Register Now!</b></string>
     <string name="login_label">Login</string>
+    <string name="enter_email_and_password">Please enter your e-mail address and choose your password</string>
+    <string name="registration">Registration</string>
+    <string name="register">Register</string>
 </resources>

@@ -1,8 +1,8 @@
-package com.rma.savefy
+package com.rma.savefy.ui.authentication
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.rma.savefy.base.BaseFragment
 import com.rma.savefy.databinding.FragmentAuthenticationBinding
 
@@ -12,6 +12,16 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         get() = FragmentAuthenticationBinding::inflate
 
     override fun setupUi() {
-        Log.d("haha", "hehe")
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
+        binding.mtvRegisterNow.setOnClickListener {
+            navigateToRegistration()
+        }
+    }
+
+    private fun navigateToRegistration() {
+        findNavController().navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment())
     }
 }

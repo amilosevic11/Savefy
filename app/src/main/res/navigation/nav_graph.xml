@@ -6,8 +6,17 @@
 
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.rma.savefy.AuthenticationFragment"
+        android:name="com.rma.savefy.ui.authentication.AuthenticationFragment"
         android:label="AuthenticationFragment">
+        <action
+            android:id="@+id/action_authenticationFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.rma.savefy.ui.registration.RegistrationFragment"
+        android:label="RegistrationFragment">
     </fragment>
 
 </navigation>
