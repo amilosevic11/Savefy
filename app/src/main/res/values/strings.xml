@@ -13,4 +13,5 @@
     <string name="login_successful">Registration successful!</string>
     <string name="login_failed">Login failed, please try again!</string>
     <string name="revenues_and_expenses">Revenues and Expenses</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
