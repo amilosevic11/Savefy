@@ -11,12 +11,22 @@
         <action
             android:id="@+id/action_authenticationFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_revenuesAndExpensesFragment"
+            app:destination="@id/revenuesAndExpensesFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.rma.savefy.ui.registration.RegistrationFragment"
         android:label="RegistrationFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/revenuesAndExpensesFragment"
+        android:name="com.rma.savefy.ui.mainscreen.RevenuesAndExpensesFragment"
+        android:label="RevenuesAndExpensesFragment">
+
     </fragment>
 
 </navigation>

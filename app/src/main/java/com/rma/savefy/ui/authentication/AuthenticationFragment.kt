@@ -39,10 +39,14 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
     }
 
     private fun navigateToMainScreen() {
-
+        findNavController().navigate(
+            AuthenticationFragmentDirections.actionAuthenticationFragmentToRevenuesAndExpensesFragment()
+        )
     }
 
     private fun navigateToRegistration() {
-        findNavController().navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment())
+        findNavController().navigate(
+            AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment()
+        )
     }
 }

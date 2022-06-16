@@ -10,4 +10,9 @@
 
     <color name="transparent">#00FFFFFF</color>
     <color name="button_color">#858484</color>
+
+    <color name="blue">#00A2FB</color>
+    <color name="blue_variant">#006FFF</color>
+    <color name="gray">#808080</color>
+
 </resources>
