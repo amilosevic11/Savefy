@@ -32,6 +32,14 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
         binding.sivMenu.setOnClickListener {
             initPopupMenu(it, requireContext(), this)
         }
+
+        binding.sivAvatar.setOnClickListener {
+            checkForPermissions()
+        }
+    }
+
+    private fun checkForPermissions() {
+        
     }
 
     private fun navigateToAuthentication() {
