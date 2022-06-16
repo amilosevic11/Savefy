@@ -7,8 +7,14 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class SavefyApp : Application() {
+
+    companion object {
+        lateinit var application : SavefyApp
+    }
+
     override fun onCreate() {
         super.onCreate()
+        application = this
         startKoin {
             androidContext(this@SavefyApp)
             modules(listOf(
@@ -17,4 +23,5 @@ class SavefyApp : Application() {
             ))
         }
     }
+
 }

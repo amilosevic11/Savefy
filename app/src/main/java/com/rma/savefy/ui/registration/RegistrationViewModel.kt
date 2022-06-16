@@ -1,0 +1,22 @@
+package com.rma.savefy.ui.registration
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.rma.savefy.repos.FirebaseAuthRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class RegistrationViewModel(private val firebaseAuthRepository: FirebaseAuthRepository) : ViewModel() {
+
+    private val _didCreateNewAccont: MutableLiveData<Boolean> = MutableLiveData()
+    val didCreateNewAccount: LiveData<Boolean>
+        get() = _didCreateNewAccont
+
+    fun createNewAccount(email: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _didCreateNewAccont.postValue(firebaseAuthRepository.createNewUserWithEmailAndPassword(email, password))
+        }
+    }
+}
