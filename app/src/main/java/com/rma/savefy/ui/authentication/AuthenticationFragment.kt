@@ -1,6 +1,7 @@
 package com.rma.savefy.ui.authentication
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.rma.savefy.base.BaseFragment
@@ -15,13 +16,21 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         get() = FragmentAuthenticationBinding::inflate
 
     override fun setupUi() {
+        checkIsAlreadySignedIn()
         observeData()
         setOnClickListeners()
     }
 
+    private fun checkIsAlreadySignedIn() {
+        authenticationViewModel.isUserAlreadySignedIn()
+    }
+
     private fun observeData() {
         authenticationViewModel.isUserSignedIn.observe(viewLifecycleOwner) {
-            navigateToMainScreen()
+            shouldShowProgressDialog(shouldShowProgress = false)
+            if (it) {
+                navigateToMainScreen()
+            }
         }
     }
 
@@ -31,6 +40,7 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         }
 
         binding.btnLogin.setOnClickListener {
+            shouldShowProgressDialog(shouldShowProgress = true)
             authenticationViewModel.signIn(
                 binding.textInputEditTextEmail.text.toString(),
                 binding.textInputEditTextPassword.text.toString()
@@ -48,5 +58,14 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         findNavController().navigate(
             AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment()
         )
+    }
+
+    private fun shouldShowProgressDialog(shouldShowProgress: Boolean) {
+        if(shouldShowProgress) {
+            binding.progressDialog.progressBarBg.visibility = View.VISIBLE
+        }
+        else {
+            binding.progressDialog.progressBarBg.visibility = View.GONE
+        }
     }
 }

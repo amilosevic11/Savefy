@@ -1,6 +1,7 @@
 package com.rma.savefy.ui.registration
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.rma.savefy.base.BaseFragment
@@ -22,12 +23,9 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
     private fun observeData() {
         registrationViewModel.didCreateNewAccount.observe(viewLifecycleOwner) {
             if(it) {
-                //TODO Show some message
                 navigateToAuthentication()
             }
-            else {
-                //TODO Show some message
-            }
+            shouldShowProgressDialog(shouldShowProgress = false)
         }
     }
 
@@ -37,6 +35,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
         }
 
         binding.btnRegister.setOnClickListener {
+            shouldShowProgressDialog(shouldShowProgress = true)
             registrationViewModel.createNewAccount(
                 binding.textInputEditTextEmail.text.toString(),
                 binding.textInputEditTextPassword.text.toString()
@@ -46,5 +45,14 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
 
     private fun navigateToAuthentication() {
         findNavController().navigateUp()
+    }
+
+    private fun shouldShowProgressDialog(shouldShowProgress: Boolean) {
+        if(shouldShowProgress) {
+            binding.progressDialog.progressBarBg.visibility = View.VISIBLE
+        }
+        else {
+            binding.progressDialog.progressBarBg.visibility = View.GONE
+        }
     }
 }

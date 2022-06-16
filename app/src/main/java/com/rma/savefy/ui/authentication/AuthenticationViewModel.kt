@@ -48,4 +48,8 @@ class AuthenticationViewModel(private val firebaseAuthRepository: FirebaseAuthRe
             }
         }
     }
+
+    fun signOut() {
+        firebaseAuthRepository.signOut()
+    }
 }

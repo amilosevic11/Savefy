@@ -105,4 +105,9 @@
         android:scaleType="centerCrop"
         android:src="@drawable/linkedin_banner_image_2"/>
 
+    <include
+        android:id="@+id/progress_dialog"
+        android:visibility="gone"
+        layout="@layout/progress_dialog"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

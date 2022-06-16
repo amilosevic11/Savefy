@@ -82,4 +82,9 @@
         android:layout_marginEnd="@dimen/medium_margin"
         android:text="@string/new_to_savefy"/>
 
+    <include
+        android:id="@+id/progress_dialog"
+        android:visibility="gone"
+        layout="@layout/progress_dialog"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

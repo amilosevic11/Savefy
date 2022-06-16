@@ -8,4 +8,8 @@
     <string name="registration">Registration</string>
     <string name="register">Register</string>
     <string name="please_wait">Please wait</string>
+    <string name="registration_successful">Registration successful!</string>
+    <string name="registration_failed">Registration failed, please try again!</string>
+    <string name="login_successful">Registration successful!</string>
+    <string name="login_failed">Login failed, please try again!</string>
 </resources>
