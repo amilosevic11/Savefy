@@ -10,8 +10,11 @@
     <string name="please_wait">Please wait</string>
     <string name="registration_successful">Registration successful!</string>
     <string name="registration_failed">Registration failed, please try again!</string>
-    <string name="login_successful">Registration successful!</string>
+    <string name="login_successful">Login successful!</string>
     <string name="login_failed">Login failed, please try again!</string>
     <string name="revenues_and_expenses">Revenues and Expenses</string>
     <string name="sign_out">Sign Out</string>
+    <string name="image_upload_success">Image uploaded successfully!</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>

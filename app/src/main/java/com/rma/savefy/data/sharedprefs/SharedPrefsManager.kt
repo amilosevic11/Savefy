@@ -1,4 +1,4 @@
-package com.rma.savefy.data
+package com.rma.savefy.data.sharedprefs
 
 import android.content.Context
 import com.rma.savefy.SavefyApp

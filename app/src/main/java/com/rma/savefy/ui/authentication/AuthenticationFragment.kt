@@ -3,6 +3,8 @@ package com.rma.savefy.ui.authentication
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.rma.savefy.base.BaseFragment
 import com.rma.savefy.databinding.FragmentAuthenticationBinding
@@ -26,6 +28,9 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
     }
 
     private fun observeData() {
+        authenticationViewModel.recentEmails.observe(viewLifecycleOwner) {
+            initAutoCompleteItems(it)
+        }
         authenticationViewModel.isUserSignedIn.observe(viewLifecycleOwner) {
             shouldShowProgressDialog(shouldShowProgress = false)
             if (it) {
@@ -45,7 +50,21 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
                 binding.textInputEditTextEmail.text.toString(),
                 binding.textInputEditTextPassword.text.toString()
             )
+            authenticationViewModel.insertEmail(binding.textInputEditTextEmail.text.toString())
         }
+
+        binding.textInputEditTextEmail.setOnClickListener {
+            authenticationViewModel.getAllEmails()
+        }
+
+        binding.textInputEditTextEmail.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+            binding.textInputEditTextEmail.setText(parent.getItemAtPosition(position).toString())
+        }
+    }
+
+    private fun initAutoCompleteItems(recentEmails: List<String>) {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, recentEmails)
+        binding.textInputEditTextEmail.setAdapter(adapter)
     }
 
     private fun navigateToMainScreen() {

@@ -21,10 +21,10 @@ fun String.isEmailValid(): Boolean {
     return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
 
-fun initPopupMenu(anchor: View, context: Context, listener: PopupMenu.OnMenuItemClickListener) {
+fun initPopupMenu(context: Context, anchor: View, menuRes: Int, listener: PopupMenu.OnMenuItemClickListener) {
     val popup = PopupMenu(context, anchor)
     val inflater = popup.menuInflater
-    inflater.inflate(R.menu.actions, popup.menu)
+    inflater.inflate(menuRes, popup.menu)
     popup.setOnMenuItemClickListener(listener)
     popup.show()
 }
