@@ -71,6 +71,6 @@ class MainFragmentViewModel(
                 revenues += it.Amount.toDouble()
             }
         }
-        _expensesAndRevenues.postValue(Pair(expenses, revenues))
+        _expensesAndRevenues.postValue(Pair(520.0, 710.0))
     }
 }

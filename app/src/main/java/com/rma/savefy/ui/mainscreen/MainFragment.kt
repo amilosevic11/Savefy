@@ -21,6 +21,7 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.DefaultValueFormatter
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.rma.savefy.R
 import com.rma.savefy.SavefyApp
@@ -69,6 +70,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
             if(it.first != 0.0 || it.second != 0.0) {
                 initPieChart()
                 setDataToPieChart(it.first.toFloat(), it.second.toFloat())
+                shouldShowProgressDialog(false)
             }
         }
     }
@@ -96,11 +98,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
             description.text = ""
             setUsePercentValues(true)
             isDrawHoleEnabled = false
-            setTouchEnabled(false)
+            setTouchEnabled(true)
             setDrawEntryLabels(false)
             setExtraOffsets(20f, 0f, 20f, 20f)
             setUsePercentValues(true)
-            isRotationEnabled = false
+            isRotationEnabled = true
             setDrawEntryLabels(false)
             legend.orientation = Legend.LegendOrientation.VERTICAL
             legend.isWordWrapEnabled = true
@@ -109,36 +111,26 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
 
     private fun setDataToPieChart(expenses: Float, revenues: Float) {
         with(binding.pieChart) {
-            setUsePercentValues(true)
+            setUsePercentValues(false)
             val dataEntries = ArrayList<PieEntry>()
             dataEntries.add(PieEntry(expenses, getString(R.string.expenses)))
             dataEntries.add(PieEntry(revenues, getString(R.string.revenues)))
 
             val colors: ArrayList<Int> = ArrayList()
-            colors.add(R.color.expense_color)
-            colors.add(R.color.revenue_color)
+            colors.add(Color.DKGRAY)
+            colors.add(Color.CYAN)
 
             val dataSet = PieDataSet(dataEntries, "")
             val data = PieData(dataSet)
 
             // In Percentage
-            data.setValueFormatter(PercentFormatter())
+            data.setValueFormatter(DefaultValueFormatter(2))
             dataSet.sliceSpace = 3f
             dataSet.colors = colors
             this.data = data
             data.setValueTextSize(15f)
             setExtraOffsets(5f, 10f, 5f, 5f)
             animateY(1400, Easing.EasingOption.EaseInOutQuad)
-
-            //create hole in center
-            holeRadius = 58f
-            transparentCircleRadius = 61f
-            isDrawHoleEnabled = true
-            setHoleColor(Color.WHITE)
-
-            //add text in center
-            setDrawCenterText(true)
-            centerText = getString(R.string.expenses_and_revenues)
 
             invalidate()
         }
