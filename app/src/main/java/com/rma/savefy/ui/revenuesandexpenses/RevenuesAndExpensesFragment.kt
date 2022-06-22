@@ -46,7 +46,9 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
         }
         revenuesAndExpensesViewModel.userAvatar.observe(viewLifecycleOwner) {
             if(!it.equals(Uri.EMPTY)) {
-                binding.sivAvatar.load(it)
+                binding.sivAvatar.load(it) {
+                    placeholder(R.drawable.ic_launcher_background)
+                }
             }
             shouldShowProgressDialog(shouldShowProgress = false)
         }
