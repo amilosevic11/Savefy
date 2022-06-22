@@ -16,34 +16,17 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-//                    emit(it.user)
+                    currentUser = it.user
                 }
                 .addOnFailureListener {
-
+                    makeToast(it.message.toString(), lengthLong = false)
                 }.await()
+            emit(currentUser)
         } catch (e: Exception) {
             makeToast(e.message.toString(), lengthLong = false)
+            emit(currentUser)
         }
-        emit(currentUser)
     }
-
-//    suspend fun authenticateUserWithEmail(email: String, password: String): FirebaseUser? {
-//        var currentUser: FirebaseUser? = null
-//        try {
-//            firebaseAuth.signInWithEmailAndPassword(email, password)
-//                .addOnSuccessListener {
-//                    makeToast(SavefyApp.application.getString(R.string.login_successful), lengthLong = false)
-//                    currentUser = it.user
-//                }
-//                .addOnFailureListener {
-////                    makeToast(SavefyApp.application.getString(R.string.login_failed), lengthLong = false)
-//                }.await()
-//        } catch (e: Exception) {
-//            makeToast(e.message.toString())
-//        }
-//
-//        return currentUser
-//    }
 
     suspend fun createNewUserWithEmailAndPassword(email: String, password: String): Boolean {
         var isSuccessful = false
@@ -54,7 +37,7 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
                     isSuccessful = true
                 }
                 .addOnFailureListener {
-//                    makeToast(SavefyApp.application.getString(R.string.registration_failed), lengthLong = false)
+                    makeToast(it.message.toString(), lengthLong = false)
                     isSuccessful = false
                 }.await()
         } catch (e: Exception) {

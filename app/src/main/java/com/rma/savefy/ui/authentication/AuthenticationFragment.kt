@@ -27,6 +27,11 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         setOnClickListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        authenticationViewModel.getAllEmails()
+    }
+
     private fun checkIsAlreadySignedIn() {
         authenticationViewModel.isUserAlreadySignedIn()
     }
@@ -57,9 +62,9 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
             authenticationViewModel.insertEmail(binding.textInputEditTextEmail.text.toString())
         }
 
-        binding.textInputEditTextEmail.setOnClickListener {
-            authenticationViewModel.getAllEmails()
-        }
+//        binding.textInputEditTextEmail.setOnClickListener {
+//            authenticationViewModel.getAllEmails()
+//        }
 
         binding.textInputEditTextEmail.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             binding.textInputEditTextEmail.setText(parent.getItemAtPosition(position).toString())

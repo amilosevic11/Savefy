@@ -24,7 +24,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/siv_menu"
-            android:layout_width="64dp"
+            android:layout_width="54dp"
             android:layout_height="64dp"
             android:layout_gravity="end"
             android:src="@drawable/three_dots"
