@@ -2,6 +2,7 @@ package com.rma.savefy.repos
 
 import android.net.Uri
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ListResult
 import com.google.firebase.storage.StorageReference
 import com.rma.savefy.R
 import com.rma.savefy.SavefyApp
@@ -17,8 +18,8 @@ class FirebaseCloudStorageRepository(firebaseCloudStorage: FirebaseStorage) {
 
     suspend fun uploadPhoto(imageUri: Uri) {
         withContext(Dispatchers.IO) {
-            val imageRef = storage.child("${SharedPrefsManager().getUserId()}.jpg")
             try {
+                val imageRef = storage.child("${SharedPrefsManager().getUserId()}.jpg")
                 imageRef.putFile(imageUri).addOnSuccessListener {
                     makeToast(SavefyApp.application.getString(R.string.image_upload_success), lengthLong = false)
                 }.await()
@@ -31,12 +32,36 @@ class FirebaseCloudStorageRepository(firebaseCloudStorage: FirebaseStorage) {
     suspend fun downloadPhoto(onResult: (Uri) -> Unit) {
         withContext(Dispatchers.IO) {
             try {
-                storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl.addOnCompleteListener {
-                    onResult(it.result)
-                }.addOnFailureListener {
-                    makeToast(it.message.toString(), lengthLong = false)
-                    onResult(Uri.EMPTY)
+                val list = mutableListOf<StorageReference>()
+                storage.listAll().addOnCompleteListener {
+                    list.addAll(it.result.items)
                 }.await()
+                list.map { storageReference ->
+                    if(storageReference.path.contains(SharedPrefsManager().getUserId().toString())) {
+                        storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl.addOnCompleteListener {
+                            if(it.result != null) {
+                                onResult(it.result)
+                            }
+                            else {
+                                onResult(Uri.EMPTY)
+                            }
+                        }.addOnFailureListener {
+                            makeToast(it.message.toString(), lengthLong = false)
+                            onResult(Uri.EMPTY)
+                        }.await()
+                    }
+                    else {
+                        onResult(Uri.EMPTY)
+                    }
+                }
+//                storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl.addOnCompleteListener {
+//                    if(it.result != null) {
+//                        onResult(it.result)
+//                    }
+//                }.addOnFailureListener {
+//                    makeToast(it.message.toString(), lengthLong = false)
+//                    onResult(Uri.EMPTY)
+//                }.await()
             } catch (e: Exception) {
                 onResult(Uri.EMPTY)
                 makeToast(e.message.toString(), lengthLong = false)
