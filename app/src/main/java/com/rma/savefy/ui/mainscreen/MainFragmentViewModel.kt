@@ -1,4 +1,4 @@
-package com.rma.savefy.ui.revenuesandexpenses
+package com.rma.savefy.ui.mainscreen
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -8,10 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.rma.savefy.data.sharedprefs.SharedPrefsManager
 import com.rma.savefy.repos.FirebaseCloudStorageRepository
 import com.rma.savefy.repos.FirebaseAuthRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RevenuesAndExpensesViewModel(
+class MainFragmentViewModel(
     private val firebaseAuthRepository: FirebaseAuthRepository,
     private val firebaseCloudStorageRepository: FirebaseCloudStorageRepository
 ) : ViewModel() {
@@ -42,5 +41,9 @@ class RevenuesAndExpensesViewModel(
                 _userAvatar.postValue(it)
             }
         }
+    }
+
+    fun getData() {
+
     }
 }

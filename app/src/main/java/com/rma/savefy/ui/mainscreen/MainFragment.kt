@@ -1,4 +1,4 @@
-package com.rma.savefy.ui.revenuesandexpenses
+package com.rma.savefy.ui.mainscreen
 
 import android.Manifest
 import android.app.Activity
@@ -18,16 +18,16 @@ import coil.load
 import com.rma.savefy.R
 import com.rma.savefy.SavefyApp
 import com.rma.savefy.base.BaseFragment
-import com.rma.savefy.databinding.FragmentRevenuesAndExpensesBinding
+import com.rma.savefy.databinding.FragmentMainBinding
 import com.rma.savefy.helpers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBinding>(), PopupMenu.OnMenuItemClickListener {
+class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemClickListener {
 
-    private val revenuesAndExpensesViewModel: RevenuesAndExpensesViewModel by viewModel()
+    private val mainFragmentViewModel: MainFragmentViewModel by viewModel()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRevenuesAndExpensesBinding
-        get() = FragmentRevenuesAndExpensesBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding
+        get() = FragmentMainBinding::inflate
 
     override fun setupUi() {
         downloadAvatar()
@@ -37,14 +37,14 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
 
     private fun downloadAvatar() {
         shouldShowProgressDialog(shouldShowProgress = true)
-        revenuesAndExpensesViewModel.downloadAvatar()
+        mainFragmentViewModel.downloadAvatar()
     }
 
     private fun observeData() {
-        revenuesAndExpensesViewModel.isUserSignedOut.observe(viewLifecycleOwner) {
+        mainFragmentViewModel.isUserSignedOut.observe(viewLifecycleOwner) {
             navigateToAuthentication()
         }
-        revenuesAndExpensesViewModel.userAvatar.observe(viewLifecycleOwner) {
+        mainFragmentViewModel.userAvatar.observe(viewLifecycleOwner) {
             if(!it.equals(Uri.EMPTY)) {
                 binding.sivAvatar.load(it) {
                     placeholder(R.drawable.ic_launcher_background)
@@ -106,13 +106,13 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
 
     private fun navigateToAuthentication() {
         findNavController().navigate(
-            RevenuesAndExpensesFragmentDirections.actionRevenuesAndExpensesFragmentToAuthenticationFragment()
+            MainFragmentDirections.actionRevenuesAndExpensesFragmentToAuthenticationFragment()
         )
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item?.itemId) {
-            R.id.sign_out -> revenuesAndExpensesViewModel.signOut()
+            R.id.sign_out -> mainFragmentViewModel.signOut()
             R.id.camera -> startCamera()
             else -> startGallery()
         }
@@ -146,7 +146,7 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
             if(data != null) {
                 val takenImage = data.data
                 if (takenImage != null) {
-                    revenuesAndExpensesViewModel.uploadAvatar(takenImage)
+                    mainFragmentViewModel.uploadAvatar(takenImage)
                     binding.sivAvatar.load(takenImage)
                 }
             }
@@ -155,7 +155,7 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
             if (data != null) {
                 val takenImage = data.data
                 if (takenImage != null) {
-                    revenuesAndExpensesViewModel.uploadAvatar(takenImage)
+                    mainFragmentViewModel.uploadAvatar(takenImage)
                     binding.sivAvatar.load(takenImage)
                 }
             }

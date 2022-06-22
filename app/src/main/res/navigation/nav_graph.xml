@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/revenuesAndExpensesFragment"
-        android:name="com.rma.savefy.ui.revenuesandexpenses.RevenuesAndExpensesFragment"
+        android:name="com.rma.savefy.ui.mainscreen.MainFragment"
         android:label="RevenuesAndExpensesFragment">
         <action
             android:id="@+id/action_revenuesAndExpensesFragment_to_authenticationFragment"
