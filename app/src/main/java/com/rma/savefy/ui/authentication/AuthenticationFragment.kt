@@ -62,10 +62,6 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
             authenticationViewModel.insertEmail(binding.textInputEditTextEmail.text.toString())
         }
 
-//        binding.textInputEditTextEmail.setOnClickListener {
-//            authenticationViewModel.getAllEmails()
-//        }
-
         binding.textInputEditTextEmail.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             binding.textInputEditTextEmail.setText(parent.getItemAtPosition(position).toString())
         }

@@ -40,15 +40,21 @@
         <action
             android:id="@+id/action_mainFragment_to_revenueAndExpenseFragment"
             app:destination="@id/revenueAndExpenseFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_previousEntriesListFragment"
+            app:destination="@id/previousEntriesListFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/revenueAndExpenseFragment"
         android:name="com.rma.savefy.ui.revenueandexpense.RevenueAndExpenseFragment"
         android:label="RevenueAndExpenseFragment">
-        <argument
-            android:name="type"
-            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/previousEntriesListFragment"
+        android:name="com.rma.savefy.ui.previousentries.PreviousEntriesListFragment"
+        android:label="PreviousEntriesListFragment">
     </fragment>
 
 </navigation>

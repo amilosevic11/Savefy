@@ -84,12 +84,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
             checkForPermissions()
         }
 
-        binding.mbtnAddExpense.setOnClickListener {
-
-        }
-
-        binding.mbtnAddRevenue.setOnClickListener {
-
+        binding.mbtnAddRevenueExpense.setOnClickListener {
+            navigateToRevenueExpenseFragment()
         }
     }
 
@@ -174,13 +170,26 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
         )
     }
 
+    private fun navigateToRevenueExpenseFragment() {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToRevenueAndExpenseFragment()
+        )
+    }
+
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item?.itemId) {
             R.id.sign_out -> mainFragmentViewModel.signOut()
             R.id.camera -> startCamera()
+            R.id.previous_entries -> navigateToPreviousEntriesList()
             else -> startGallery()
         }
         return true
+    }
+
+    private fun navigateToPreviousEntriesList() {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToPreviousEntriesListFragment()
+        )
     }
 
     private fun startCamera() {

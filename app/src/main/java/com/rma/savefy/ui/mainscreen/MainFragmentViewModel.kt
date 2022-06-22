@@ -32,6 +32,10 @@ class MainFragmentViewModel(
     val expensesAndRevenues: LiveData<Pair<Double, Double>>
         get() = _expensesAndRevenues
 
+    private val _didFetchAllData: MutableLiveData<List<Results>> = MutableLiveData()
+    val didFetchAllData: LiveData<List<Results>>
+        get() = _didFetchAllData
+
     fun signOut() {
         firebaseAuthRepository.signOut()
         SharedPrefsManager().saveUserId("")
@@ -52,6 +56,14 @@ class MainFragmentViewModel(
         }
     }
 
+    fun getAllDataAsList() {
+        viewModelScope.launch {
+            firestoreRepository.getAllData {
+                _didFetchAllData.postValue(it)
+            }
+        }
+    }
+
     fun getAllData() {
         viewModelScope.launch {
             firestoreRepository.getAllData {
@@ -61,16 +73,19 @@ class MainFragmentViewModel(
     }
 
     private fun filterData(data: List<Results>) {
-        var expenses = 0.0
-        var revenues = 0.0
-        data.map {
-            if(it.Type == EXPENSE) {
-                expenses += it.Amount.toDouble()
+        try {
+            var expenses = 0.0
+            var revenues = 0.0
+            data.map {
+                if(it.Type == EXPENSE) {
+                    expenses += it.Amount.toDouble()
+                }
+                else {
+                    revenues += it.Amount.toDouble()
+                }
             }
-            else {
-                revenues += it.Amount.toDouble()
-            }
+            _expensesAndRevenues.postValue(Pair(expenses, revenues))
+        } catch (e: Exception) {
         }
-        _expensesAndRevenues.postValue(Pair(520.0, 710.0))
     }
 }

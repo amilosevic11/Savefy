@@ -20,7 +20,7 @@
             android:textSize="@dimen/normal_text"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="@string/revenues_and_expenses"/>
+            android:text="@string/overview"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/siv_menu"
@@ -52,24 +52,14 @@
         android:layout_marginTop="@dimen/medium_margin"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbtn_add_revenue"
+        android:id="@+id/mbtn_add_revenue_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pie_chart"
-        android:text="@string/add_revenue"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbtn_add_expense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mbtn_add_revenue"
-        android:text="@string/add_expense"/>
+        android:text="@string/add_new_revenue_expense"/>
 
     <include
         android:id="@+id/progress_dialog"

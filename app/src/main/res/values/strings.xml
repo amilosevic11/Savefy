@@ -26,4 +26,11 @@
     <string name="expenses_and_revenues">Expenses and revenues</string>
     <string name="expenses">Expenses</string>
     <string name="revenues">Revenues</string>
+    <string name="overview">Overview</string>
+    <string name="type">Type:</string>
+    <string name="amount">Amount:</string>
+    <string name="description">Description:</string>
+    <string name="add_new_revenue_expense">Add new revenue/expense</string>
+    <string name="previous_entries_list">Previous entries list</string>
+    <string name="see_previous_entries">See previous entries</string>
 </resources>

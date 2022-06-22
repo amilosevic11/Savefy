@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:paddingStart="0dp"
             android:backgroundTint="@color/transparent"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

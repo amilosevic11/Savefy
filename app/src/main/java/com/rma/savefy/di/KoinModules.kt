@@ -13,6 +13,7 @@ import com.rma.savefy.repos.FirestoreRepository
 import com.rma.savefy.ui.authentication.AuthenticationViewModel
 import com.rma.savefy.ui.registration.RegistrationViewModel
 import com.rma.savefy.ui.mainscreen.MainFragmentViewModel
+import com.rma.savefy.ui.revenueandexpense.RevenueAndExpenseViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -39,4 +40,5 @@ val viewModelModule = module {
     viewModel { AuthenticationViewModel(get(), get()) }
     viewModel { RegistrationViewModel(get()) }
     viewModel { MainFragmentViewModel(get(), get(), get()) }
+    viewModel { RevenueAndExpenseViewModel(get()) }
 }
