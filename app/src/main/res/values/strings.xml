@@ -17,4 +17,7 @@
     <string name="image_upload_success">Image uploaded successfully!</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="alert_dialog_title">Do you with to delete previously entered emails?</string>
+    <string name="ok_label">OK</string>
+    <string name="cancel_label">Cancel</string>
 </resources>

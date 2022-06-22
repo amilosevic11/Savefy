@@ -1,11 +1,15 @@
 package com.rma.savefy.ui.authentication
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import com.rma.savefy.R
 import com.rma.savefy.base.BaseFragment
 import com.rma.savefy.databinding.FragmentAuthenticationBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -60,6 +64,10 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         binding.textInputEditTextEmail.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             binding.textInputEditTextEmail.setText(parent.getItemAtPosition(position).toString())
         }
+
+        binding.sivMenuDeleteEmails.setOnClickListener {
+            initAlertDialog()
+        }
     }
 
     private fun initAutoCompleteItems(recentEmails: List<String>) {
@@ -86,5 +94,25 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         else {
             binding.progressDialog.progressBarBg.visibility = View.GONE
         }
+    }
+
+    private fun simulateLoading(delay: Long) {
+        shouldShowProgressDialog(true)
+        Handler(Looper.getMainLooper()).postDelayed({
+            shouldShowProgressDialog(false)
+        }, delay)
+    }
+
+    private fun initAlertDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.alert_dialog_title))
+            .setPositiveButton(getString(R.string.ok_label)) { _, _ ->
+                authenticationViewModel.deleteAllEmails()
+                simulateLoading(500)
+            }
+            .setNegativeButton(getString(R.string.cancel_label)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
