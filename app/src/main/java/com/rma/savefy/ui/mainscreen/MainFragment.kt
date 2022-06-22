@@ -45,7 +45,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
 
     override fun onResume() {
         super.onResume()
-        shouldShowProgressDialog(shouldShowProgress = true)
         downloadAvatar()
         mainFragmentViewModel.getAllData()
     }

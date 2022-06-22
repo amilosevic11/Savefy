@@ -36,18 +36,44 @@ class FirebaseCloudStorageRepository(firebaseCloudStorage: FirebaseStorage) {
                 storage.listAll().addOnCompleteListener {
                     list.addAll(it.result.items)
                 }.await()
-                list.map { storageReference ->
-                    if(storageReference.path.contains(SharedPrefsManager().getUserId().toString())) {
-                        storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl.addOnCompleteListener {
-                            if(it.result != null) {
+
+                for(item in list) {
+                    if(item.path.contains("${SharedPrefsManager().getUserId()}.jpg")) {
+                        storage.child("${SharedPrefsManager().getUserId()}.jpg")
+                            .downloadUrl
+                            .addOnCompleteListener {
                                 onResult(it.result)
                             }
-                        }.addOnFailureListener {
-                            makeToast(it.message.toString(), lengthLong = false)
-                            onResult(Uri.EMPTY)
-                        }.await()
+                            .addOnFailureListener {
+                                onResult(Uri.EMPTY)
+                            }.await()
                     }
                 }
+
+//                list.forEach { storageReference ->
+//                    if(storageReference.path.contains(SharedPrefsManager().getUserId().toString())) {
+//                        storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl
+//                            .addOnCompleteListener {
+//                                onResult(it.result)
+//                            }
+//                            .addOnFailureListener {
+//                                onResult(Uri.EMPTY)
+//                            }.await()
+//                    }
+//                }
+
+//                list.map { storageReference ->
+//                    if(storageReference.path.contains(SharedPrefsManager().getUserId().toString())) {
+//                        storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl.addOnCompleteListener {
+//                            if(it.result != null) {
+//                                onResult(it.result)
+//                            }
+//                        }.addOnFailureListener {
+//                            makeToast(it.message.toString(), lengthLong = false)
+//                            onResult(Uri.EMPTY)
+//                        }.await()
+//                    }
+//                }
             } catch (e: Exception) {
                 onResult(Uri.EMPTY)
                 makeToast(e.message.toString(), lengthLong = false)
