@@ -33,6 +33,8 @@
         <action
             android:id="@+id/action_revenuesAndExpensesFragment_to_authenticationFragment"
             app:destination="@id/authenticationFragment"
+            app:popUpTo="@id/revenuesAndExpensesFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@android:anim/slide_out_right"/>
     </fragment>
 
