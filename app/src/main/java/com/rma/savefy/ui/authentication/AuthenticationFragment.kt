@@ -22,7 +22,6 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         get() = FragmentAuthenticationBinding::inflate
 
     override fun setupUi() {
-        checkIsAlreadySignedIn()
         observeData()
         setOnClickListeners()
     }
@@ -30,6 +29,7 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
     override fun onResume() {
         super.onResume()
         authenticationViewModel.getAllEmails()
+        checkIsAlreadySignedIn()
     }
 
     private fun checkIsAlreadySignedIn() {

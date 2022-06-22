@@ -21,23 +21,18 @@ class AuthenticationViewModel(
     val isUserSignedIn: LiveData<Boolean>
         get() = _isUserSignedIn
 
-    private val _currentUser: MutableLiveData<FirebaseUser?> = MutableLiveData()
-    val currentUser: LiveData<FirebaseUser?>
-        get() = _currentUser
-
     private val _recentEmails: MutableLiveData<List<String>> = MutableLiveData()
     val recentEmails: LiveData<List<String>>
         get() = _recentEmails
 
     fun signIn(email: String, password: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            firebaseAuthRepository.authenticateUserWithEmail(email, password).collect {
-                if(it != null) {
-                    _isUserSignedIn.postValue(true)
-                    SharedPrefsManager().saveUserId(it.uid)
+        viewModelScope.launch {
+            firebaseAuthRepository.authenticateUserWithEmail(email, password) {
+                if(it) {
+                    _isUserSignedIn.postValue(it)
                 }
                 else {
-                    _isUserSignedIn.postValue(false)
+                    _isUserSignedIn.postValue(it)
                 }
             }
         }

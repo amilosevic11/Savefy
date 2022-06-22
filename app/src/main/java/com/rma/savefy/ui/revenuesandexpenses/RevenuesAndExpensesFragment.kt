@@ -62,6 +62,14 @@ class RevenuesAndExpensesFragment : BaseFragment<FragmentRevenuesAndExpensesBind
         binding.sivAvatar.setOnClickListener {
             checkForPermissions()
         }
+
+        binding.mbtnAddExpense.setOnClickListener {
+
+        }
+
+        binding.mbtnAddRevenue.setOnClickListener {
+
+        }
     }
 
     private fun checkForPermissions() {

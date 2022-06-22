@@ -21,4 +21,6 @@
     <string name="ok_label">OK</string>
     <string name="cancel_label">Cancel</string>
     <string name="add_data">Add data</string>
+    <string name="add_revenue">Add revenue</string>
+    <string name="add_expense">Add expense</string>
 </resources>

@@ -31,14 +31,16 @@ class RevenuesAndExpensesViewModel(
     }
 
     fun uploadAvatar(photoUri: Uri) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             firebaseCloudStorageRepository.uploadPhoto(photoUri)
         }
     }
 
     fun downloadAvatar() {
-        viewModelScope.launch(Dispatchers.Default) {
-            _userAvatar.postValue(firebaseCloudStorageRepository.downloadPhoto())
+        viewModelScope.launch {
+            firebaseCloudStorageRepository.downloadPhoto {
+                _userAvatar.postValue(it)
+            }
         }
     }
 }
