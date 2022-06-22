@@ -42,26 +42,12 @@ class FirebaseCloudStorageRepository(firebaseCloudStorage: FirebaseStorage) {
                             if(it.result != null) {
                                 onResult(it.result)
                             }
-                            else {
-                                onResult(Uri.EMPTY)
-                            }
                         }.addOnFailureListener {
                             makeToast(it.message.toString(), lengthLong = false)
                             onResult(Uri.EMPTY)
                         }.await()
                     }
-                    else {
-                        onResult(Uri.EMPTY)
-                    }
                 }
-//                storage.child("${SharedPrefsManager().getUserId()}.jpg").downloadUrl.addOnCompleteListener {
-//                    if(it.result != null) {
-//                        onResult(it.result)
-//                    }
-//                }.addOnFailureListener {
-//                    makeToast(it.message.toString(), lengthLong = false)
-//                    onResult(Uri.EMPTY)
-//                }.await()
             } catch (e: Exception) {
                 onResult(Uri.EMPTY)
                 makeToast(e.message.toString(), lengthLong = false)

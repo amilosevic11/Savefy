@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
@@ -22,7 +23,6 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.rma.savefy.R
 import com.rma.savefy.SavefyApp
 import com.rma.savefy.base.BaseFragment
@@ -39,7 +39,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
         get() = FragmentMainBinding::inflate
 
     override fun setupUi() {
-        downloadAvatar()
         observeData()
         setOnClickListeners()
     }
@@ -47,6 +46,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
     override fun onResume() {
         super.onResume()
         shouldShowProgressDialog(shouldShowProgress = true)
+        downloadAvatar()
         mainFragmentViewModel.getAllData()
     }
 
@@ -225,12 +225,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
             }
         }
         else if(requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                val takenImage = data.data
-                if (takenImage != null) {
-                    mainFragmentViewModel.uploadAvatar(takenImage)
-                    binding.sivAvatar.load(takenImage)
-                }
+            if (data != null && data.hasExtra("data")) {
+                val takenImage = mainFragmentViewModel.getImageUri(requireContext(), data.extras?.get("data") as Bitmap)
+                mainFragmentViewModel.uploadAvatar(takenImage)
+                binding.sivAvatar.load(takenImage)
             }
         }
     }

@@ -1,6 +1,9 @@
 package com.rma.savefy.ui.mainscreen
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
+import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +15,7 @@ import com.rma.savefy.repos.FirebaseCloudStorageRepository
 import com.rma.savefy.repos.FirebaseAuthRepository
 import com.rma.savefy.repos.FirestoreRepository
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import kotlin.math.exp
 
 class MainFragmentViewModel(
@@ -46,6 +50,13 @@ class MainFragmentViewModel(
         viewModelScope.launch {
             firebaseCloudStorageRepository.uploadPhoto(photoUri)
         }
+    }
+
+    fun getImageUri(context: Context, image: Bitmap): Uri {
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+
+        return Uri.parse(MediaStore.Images.Media.insertImage(context.contentResolver, image, "Title", null))
     }
 
     fun downloadAvatar() {
