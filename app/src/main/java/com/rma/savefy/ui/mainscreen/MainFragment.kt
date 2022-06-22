@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -15,12 +16,19 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.rma.savefy.R
 import com.rma.savefy.SavefyApp
 import com.rma.savefy.base.BaseFragment
 import com.rma.savefy.databinding.FragmentMainBinding
 import com.rma.savefy.helpers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.ArrayList
 
 class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemClickListener {
 
@@ -35,8 +43,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
         setOnClickListeners()
     }
 
-    private fun downloadAvatar() {
+    override fun onResume() {
+        super.onResume()
         shouldShowProgressDialog(shouldShowProgress = true)
+        mainFragmentViewModel.getAllData()
+    }
+
+    private fun downloadAvatar() {
         mainFragmentViewModel.downloadAvatar()
     }
 
@@ -51,6 +64,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
                 }
             }
             shouldShowProgressDialog(shouldShowProgress = false)
+        }
+        mainFragmentViewModel.expensesAndRevenues.observe(viewLifecycleOwner) {
+            if(it.first != 0.0 || it.second != 0.0) {
+                initPieChart()
+                setDataToPieChart(it.first.toFloat(), it.second.toFloat())
+            }
         }
     }
 
@@ -69,6 +88,59 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), PopupMenu.OnMenuItemCl
 
         binding.mbtnAddRevenue.setOnClickListener {
 
+        }
+    }
+
+    private fun initPieChart() {
+        with(binding.pieChart) {
+            description.text = ""
+            setUsePercentValues(true)
+            isDrawHoleEnabled = false
+            setTouchEnabled(false)
+            setDrawEntryLabels(false)
+            setExtraOffsets(20f, 0f, 20f, 20f)
+            setUsePercentValues(true)
+            isRotationEnabled = false
+            setDrawEntryLabels(false)
+            legend.orientation = Legend.LegendOrientation.VERTICAL
+            legend.isWordWrapEnabled = true
+        }
+    }
+
+    private fun setDataToPieChart(expenses: Float, revenues: Float) {
+        with(binding.pieChart) {
+            setUsePercentValues(true)
+            val dataEntries = ArrayList<PieEntry>()
+            dataEntries.add(PieEntry(expenses, getString(R.string.expenses)))
+            dataEntries.add(PieEntry(revenues, getString(R.string.revenues)))
+
+            val colors: ArrayList<Int> = ArrayList()
+            colors.add(R.color.expense_color)
+            colors.add(R.color.revenue_color)
+
+            val dataSet = PieDataSet(dataEntries, "")
+            val data = PieData(dataSet)
+
+            // In Percentage
+            data.setValueFormatter(PercentFormatter())
+            dataSet.sliceSpace = 3f
+            dataSet.colors = colors
+            this.data = data
+            data.setValueTextSize(15f)
+            setExtraOffsets(5f, 10f, 5f, 5f)
+            animateY(1400, Easing.EasingOption.EaseInOutQuad)
+
+            //create hole in center
+            holeRadius = 58f
+            transparentCircleRadius = 61f
+            isDrawHoleEnabled = true
+            setHoleColor(Color.WHITE)
+
+            //add text in center
+            setDrawCenterText(true)
+            centerText = getString(R.string.expenses_and_revenues)
+
+            invalidate()
         }
     }
 

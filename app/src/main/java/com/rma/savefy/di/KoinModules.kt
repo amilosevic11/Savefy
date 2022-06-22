@@ -38,5 +38,5 @@ val repositoryModule = module {
 val viewModelModule = module {
     viewModel { AuthenticationViewModel(get(), get()) }
     viewModel { RegistrationViewModel(get()) }
-    viewModel { MainFragmentViewModel(get(), get()) }
+    viewModel { MainFragmentViewModel(get(), get(), get()) }
 }
