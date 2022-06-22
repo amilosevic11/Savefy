@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/authenticationFragment">
 
@@ -14,7 +15,7 @@
             app:enterAnim="@android:anim/slide_in_left"/>
         <action
             android:id="@+id/action_authenticationFragment_to_revenuesAndExpensesFragment"
-            app:destination="@id/revenuesAndExpensesFragment"
+            app:destination="@id/mainFragment"
             app:popUpTo="@id/authenticationFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@android:anim/slide_in_left"/>
@@ -27,15 +28,27 @@
     </fragment>
 
     <fragment
-        android:id="@+id/revenuesAndExpensesFragment"
+        android:id="@+id/mainFragment"
         android:name="com.rma.savefy.ui.mainscreen.MainFragment"
-        android:label="RevenuesAndExpensesFragment">
+        android:label="MainFragment">
         <action
             android:id="@+id/action_revenuesAndExpensesFragment_to_authenticationFragment"
             app:destination="@id/authenticationFragment"
-            app:popUpTo="@id/revenuesAndExpensesFragment"
+            app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@android:anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainFragment_to_revenueAndExpenseFragment"
+            app:destination="@id/revenueAndExpenseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/revenueAndExpenseFragment"
+        android:name="com.rma.savefy.ui.revenueandexpense.RevenueAndExpenseFragment"
+        android:label="RevenueAndExpenseFragment">
+        <argument
+            android:name="type"
+            app:argType="string"/>
     </fragment>
 
 </navigation>
