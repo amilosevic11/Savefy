@@ -42,7 +42,24 @@
         android:src="@drawable/ic_launcher_background"
         android:layout_marginTop="@dimen/medium_margin"/>
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/siv_avatar"
+        android:layout_marginTop="@dimen/medium_margin"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbtn_add_revenues_or_expenses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pie_chart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/add_data"/>
 
     <include
         android:id="@+id/progress_dialog"

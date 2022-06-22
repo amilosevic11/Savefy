@@ -20,4 +20,5 @@
     <string name="alert_dialog_title">Do you with to delete previously entered emails?</string>
     <string name="ok_label">OK</string>
     <string name="cancel_label">Cancel</string>
+    <string name="add_data">Add data</string>
 </resources>
