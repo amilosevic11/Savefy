@@ -26,6 +26,8 @@
     <string name="expenses_and_revenues">Expenses and revenues</string>
     <string name="expenses">Expenses</string>
     <string name="revenues">Revenues</string>
+    <string name="revenue">Revenue</string>
+    <string name="expense">Expense</string>
     <string name="overview">Overview</string>
     <string name="type">Type:</string>
     <string name="amount">Amount:</string>

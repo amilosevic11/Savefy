@@ -28,12 +28,7 @@ class AuthenticationViewModel(
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             firebaseAuthRepository.authenticateUserWithEmail(email, password) {
-                if(it) {
-                    _isUserSignedIn.postValue(it)
-                }
-                else {
-                    _isUserSignedIn.postValue(it)
-                }
+                _isUserSignedIn.postValue(it)
             }
         }
     }

@@ -18,9 +18,11 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
         withContext(Dispatchers.IO) {
             try {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        onResult(it.isSuccessful)
-                        it.result.user?.let { it1 -> SharedPrefsManager().saveUserId(it1.uid) }
+                    .addOnSuccessListener {
+                        onResult(true)
+                        it.user?.let { firebaseUser ->
+                            SharedPrefsManager().saveUserId(firebaseUser.uid)
+                        }
                     }
                     .addOnFailureListener {
                         onResult(false)
@@ -28,7 +30,6 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
                     }.await()
             } catch (e: Exception) {
                 onResult(false)
-                makeToast(e.message.toString(), lengthLong = false)
             }
         }
     }
@@ -36,9 +37,9 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
     suspend fun createNewUserWithEmailAndPassword(email: String, password: String, onResult: (Boolean) -> Unit) {
         try {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
+                .addOnSuccessListener {
                     makeToast(SavefyApp.application.getString(R.string.registration_successful), lengthLong = false)
-                    onResult(it.isSuccessful)
+                    onResult(true)
                 }
                 .addOnFailureListener {
                     makeToast(it.message.toString(), lengthLong = false)
@@ -46,7 +47,6 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
                 }.await()
         } catch (e: Exception) {
             onResult(false)
-            makeToast(e.message.toString(), lengthLong = false)
         }
     }
 

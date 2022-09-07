@@ -17,12 +17,7 @@ class RegistrationViewModel(private val firebaseAuthRepository: FirebaseAuthRepo
     fun createNewAccount(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             firebaseAuthRepository.createNewUserWithEmailAndPassword(email, password) {
-                if(it) {
-                    _didCreateNewAccont.postValue(it)
-                }
-                else {
-                    _didCreateNewAccont.postValue(it)
-                }
+                _didCreateNewAccont.postValue(it)
             }
         }
     }

@@ -3,8 +3,10 @@ package com.rma.savefy.ui.previousentries
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rma.savefy.R
 import com.rma.savefy.base.BaseFragment
 import com.rma.savefy.databinding.FragmentPreviousEntriesListBinding
 import com.rma.savefy.models.Results
@@ -53,7 +55,17 @@ class PreviousEntriesListFragment : BaseFragment<FragmentPreviousEntriesListBind
     }
 
     override fun onItemClick(result: Results) {
+        initAlertDialog(result)
+    }
 
+    private fun initAlertDialog(result: Results) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(result.Description)
+            .setMessage(result.Amount)
+            .setPositiveButton(getString(R.string.ok_label)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun shouldShowProgressDialog(shouldShowProgress: Boolean) {
